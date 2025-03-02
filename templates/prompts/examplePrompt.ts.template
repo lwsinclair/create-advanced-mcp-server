@@ -1,0 +1,44 @@
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { z } from "zod";
+import { logger } from "../utils/logging.js";
+
+
+/**
+ * Example prompt that demonstrates the MCP prompt pattern
+ */
+export const examplePrompt = (server: McpServer): void => {
+    // Register the prompt with a name, description, schema and handler
+    server.prompt(
+        "example-prompt",
+        "An example prompt for demonstration",
+        {
+            parameter: z.string().describe("A parameter for the prompt")
+        },
+        ({ parameter }) => {
+            logger.info(`Generating prompt with parameter: ${parameter}`);
+
+            // Return the prompt
+            return {
+                messages: [
+                    {
+                        role: "user",
+                        content:
+                        {
+                            type: "text",
+                            text: `This is an example prompt with parameter: ${parameter}`
+                        }
+
+                    },
+                    {
+                        role: "assistant",
+                        content:
+                        {
+                            type: "text",
+                            text: `This is an example prompt with parameter: ${parameter}`
+                        }
+                    }
+                ]
+            };
+        }
+    );
+};

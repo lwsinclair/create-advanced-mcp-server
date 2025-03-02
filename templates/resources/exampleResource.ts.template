@@ -1,0 +1,40 @@
+import { McpServer, ResourceTemplate } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { logger } from "../utils/logging.js";
+
+/**
+ * Register example resources
+ * 
+ * @param server - MCP server instance to register the resources with
+ */
+export const exampleResource = (server: McpServer): void => {
+    // Create a static resource
+    server.resource(
+        "static-example",
+        "example://static-resource",
+        async (uri) => {
+            logger.info(`Fetching static resource: ${uri.href}`);
+            return {
+                contents: [{
+                    uri: uri.href,
+                    text: "This is a static example resource",
+                    mimeType: "text/plain"
+                }]
+            };
+        }
+    );
+
+    // Create a dynamic resource with parameters
+    server.resource(
+        "dynamic-example",
+        new ResourceTemplate("users://{userId}/profile", { list: undefined }),
+        async (uri: any, { userId }) => {
+            logger.info(`Fetching dynamic resource: ${uri.href} with ID: ${userId}`);
+            return {
+                contents: [{
+                    uri: uri.href,
+                    text: `This is a dynamic example resource for user ${userId}`,
+                    mimeType: "text/plain"
+                }]
+            }
+        })
+};

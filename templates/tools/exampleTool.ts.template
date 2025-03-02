@@ -1,0 +1,44 @@
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
+import { z } from "zod";
+import { logger } from "../utils/logging.js";
+import { McpError, ErrorCode } from "@modelcontextprotocol/sdk/types.js";
+
+/**
+ * Example tool that demonstrates the MCP tool pattern
+ * 
+ * @param server - MCP server instance to register the tool with
+ */
+export const exampleTool = (server: McpServer): void => {
+    // Register the tool with a name, description, schema and handler
+    server.tool(
+        "example-tool",
+        "An example tool for demonstration",
+        {
+            inputData: z.string().describe("Input data to process"),
+            options: z.object({
+                option1: z.boolean().optional().default(true).describe("First option"),
+                option2: z.number().optional().default(10).describe("Second option")
+            }).optional()
+        },
+        async (params, extra) => {
+            try {
+                logger.info(`Processing data with example tool: ${params.inputData.substring(0, 50)}...`);
+                
+                // Process the data (example implementation)
+                const result = `Processed: ${params.inputData}`;
+                
+                // Return the result
+                return {
+                    content: [{
+                        type: "text",
+                        text: result
+                    }]
+                };
+            } catch (error) {
+                logger.error(`Error in example tool:`, error);
+                const errorMessage = error instanceof Error ? error.message : String(error);
+                throw new McpError(ErrorCode.InternalError, `Error processing data: ${errorMessage}`);
+            }
+        }
+    );
+}; 

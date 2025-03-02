@@ -1,0 +1,48 @@
+{
+  "name": "create-advanced-mcp-server",
+  "version": "1.0.0",
+  "description": "A CLI tool to scaffold a Model Context Protocol (MCP) server with integrated web capabilities",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "create-advanced-mcp-server": "dist/index.js"
+  },
+  "files": [
+    "dist",
+    "templates"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "scaffold",
+    "generator",
+    "cli",
+    "typescript",
+    "nodejs"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^11.1.0",
+    "fs-extra": "^11.2.0",
+    "inquirer": "^9.2.15",
+    "ora": "^7.0.1"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/inquirer": "^9.0.7",
+    "@types/node": "^20.10.4",
+    "@types/ws": "^8.5.14",
+    "typescript": "^5.3.3",
+    "ws": "^8.18.1"
+  }
+}
