@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/bsmi021-create-advanced-mcp-server-badge.png)](https://mseep.ai/app/bsmi021-create-advanced-mcp-server)
+
 # create-mcp-server
 
 A CLI tool to scaffold a Model Context Protocol (MCP) server with integrated web capabilities.
